@@ -1,6 +1,6 @@
 {
   "name": "gladys-free-mobile",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "External Gladys Assistant integration to send SMS notifications through the Free Mobile SMS API.",
   "type": "module",
