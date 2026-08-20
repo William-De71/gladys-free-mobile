@@ -1,3 +1,13 @@
+## [1.1.1](https://github.com/William-De71/gladys-free-mobile/compare/v1.1.0...v1.1.1) (2026-08-20)
+
+### Continuous Integration
+
+* reformat the manifest after jq in the release workflow ([c8938b5](https://github.com/William-De71/gladys-free-mobile/commit/c8938b503e186fdffa677e8564e224a83950b673))
+
+### Miscellaneous
+
+* restore the manifest formatting broken by release 1.1.0 ([77ccd9e](https://github.com/William-De71/gladys-free-mobile/commit/77ccd9e26d6af0034adcdd978027111fcc0e336c))
+
 ## [1.1.0](https://github.com/William-De71/gladys-free-mobile/compare/v1.0.2...v1.1.0) (2026-08-20)
 
 ### Features
