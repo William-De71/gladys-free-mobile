@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { normalizeConfig, isConfigured } from '../src/config.js';
+import { normalizeConfig, isConfigured, maskIdentifier } from '../src/config.js';
 
 test('normalizeConfig maps the manifest keys and trims whitespace', () => {
   const config = normalizeConfig({ username: '  12345678 ', access_token: ' abcd ' });
@@ -23,4 +23,9 @@ test('isConfigured requires both the username and the access token', () => {
   assert.equal(isConfigured({ username: '12345678', accessToken: '' }), false);
   assert.equal(isConfigured({ username: '', accessToken: 'abcd' }), false);
   assert.equal(isConfigured({ username: '', accessToken: '' }), false);
+});
+
+test('maskIdentifier keeps only the first and last two characters', () => {
+  assert.equal(maskIdentifier('12345678'), '12****78');
+  assert.equal(maskIdentifier('1234'), '****');
 });

@@ -24,24 +24,31 @@
 // -----------------------------------------------------------------------------
 
 import { GladysIntegration, logger } from '@gladysassistant/integration-sdk';
-import { normalizeConfig, isConfigured } from './src/config.js';
-import { sendSms } from './src/free-mobile.js';
+import { normalizeConfig, isConfigured, maskIdentifier } from './src/config.js';
+import { sendSms, createSerializer } from './src/free-mobile.js';
 
 const gladys = new GladysIntegration();
+
+// One queue per Free Mobile account: messages for the same user leave one after
+// the other instead of racing into the API's rate limit.
+const serialize = createSerializer();
 
 // --- Outgoing message: Gladys asks us to deliver an SMS ----------------------
 // This is the whole point of the integration: a scene "send a message", an alert
 // or a notification routed to a user ends up here. Gladys only calls us for users
 // who filled in their credentials, so `contact` always carries them.
 // `message` is `{ text, file }`; Free Mobile SMS carries text only, so the
-// optional `file` attachment is ignored.
+// optional `file` attachment is ignored. A text longer than one call allows is
+// sent as several numbered SMS.
 gladys.onSendMessage(async (contact, message) => {
   const credentials = normalizeConfig(contact);
   if (!isConfigured(credentials)) {
     throw new Error('Free Mobile credentials are missing (identifier and API key are required)');
   }
-  logger.info(`onSendMessage -> delivering an SMS to Free Mobile ${credentials.username}`);
-  await sendSms(credentials, message.text);
+  logger.info(
+    `onSendMessage -> delivering an SMS to Free Mobile ${maskIdentifier(credentials.username)}`,
+  );
+  await serialize(credentials.username, () => sendSms(credentials, message.text));
 });
 
 // --- Connection lifecycle ----------------------------------------------------

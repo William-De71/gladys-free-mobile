@@ -39,4 +39,19 @@ function isConfigured(config) {
   return Boolean(config.username && config.accessToken);
 }
 
-export { normalizeConfig, isConfigured };
+/**
+ * @description Mask a Free Mobile identifier for the logs: enough to tell two
+ * accounts apart, not enough to reuse it.
+ * @param {string} username - The Free Mobile identifier.
+ * @returns {string} The masked identifier.
+ * @example
+ * maskIdentifier('12345678'); // -> '12****78'
+ */
+function maskIdentifier(username) {
+  if (username.length <= 4) {
+    return '****';
+  }
+  return `${username.slice(0, 2)}${'*'.repeat(username.length - 4)}${username.slice(-2)}`;
+}
+
+export { normalizeConfig, isConfigured, maskIdentifier };

@@ -20,6 +20,8 @@ Gardez ces deux valeurs sous la main : ce sont elles que vous saisirez dans Glad
 
 > **Important :** si vous désactivez puis réactivez l'option « Notifications par SMS », une **nouvelle clé d'API** est générée. Pensez alors à la mettre à jour dans la configuration de Gladys.
 
+![Où trouver l'identifiant et la clé d'API, et où les saisir dans Gladys](images/setup.svg)
+
 ## Configurer l'intégration dans Gladys
 
 1. Dans Gladys, ouvrez la page de **Configuration** de l'intégration Free Mobile SMS.
@@ -39,9 +41,11 @@ Une fois configurée, l'intégration reçoit les messages sortants que Gladys vo
 - **Envoi uniquement vers votre propre numéro** : l'API Free Mobile n'autorise pas l'envoi vers un numéro arbitraire.
 - **Pas de réception** : vous ne pouvez pas répondre au SMS pour dialoguer avec Gladys.
 - **SMS texte seul** : les éventuelles pièces jointes (images) ne sont pas transmises.
-- Free Mobile peut limiter le débit d'envoi ; en cas d'envois trop rapprochés, un message peut être temporairement refusé.
+- **Messages longs** : Free Mobile accepte jusqu'à 999 caractères par SMS. Un message plus long part en plusieurs SMS, numérotés « (1/2) », « (2/2) »…
+- **Limite de débit** : Free Mobile refuse les messages trop rapprochés. L'intégration envoie les messages d'un même utilisateur l'un après l'autre et, quand Free Mobile demande de ralentir, réessaie deux fois (après 2 puis 5 secondes) avant d'abandonner.
 
 ## Dépannage
 
 - **Aucun SMS reçu** : vérifiez que l'option « Notifications par SMS » est bien **activée** et que l'identifiant et la clé d'API sont corrects.
 - **Message d'erreur d'accès refusé** : l'identifiant ou la clé sont probablement erronés, ou l'option a été désactivée. Régénérez la clé depuis votre Espace abonné et mettez-la à jour dans Gladys.
+- **Erreur « trop de SMS envoyés »** : plusieurs messages sont partis en quelques secondes et Free Mobile les a encore refusés après les nouvelles tentatives. Espacez les actions « Envoyer un message » de vos scènes (une courte attente entre deux suffit).

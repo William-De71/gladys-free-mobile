@@ -4,28 +4,61 @@
   "name": "Free Mobile SMS",
   "description": {
     "en": "Send SMS notifications to your own phone number through the Free Mobile SMS API.",
-    "fr": "Envoyez des notifications SMS vers votre propre numéro via l'API SMS de Free Mobile."
+    "fr": "Envoyez des notifications SMS vers votre propre numéro via l'API SMS de Free Mobile.",
+    "de": "Senden Sie SMS-Benachrichtigungen an Ihre eigene Rufnummer über die SMS-API von Free Mobile.",
+    "es": "Envíe notificaciones SMS a su propio número de teléfono a través de la API SMS de Free Mobile."
   },
   "version": "1.1.1",
   "docker_image": "ghcr.io/william-de71/gladys-free-mobile:1.1.1",
   "gladys_version": ">=4.86.0",
   "categories": ["notifications"],
   "transports": ["cloud"],
-  "cover_image": "https://raw.githubusercontent.com/William-De71/gladys-free-mobile/master/cover.jpg",
+  "cover_image": "https://raw.githubusercontent.com/William-De71/gladys-free-mobile/main/cover.jpg",
   "messaging": {
     "receive": false
   },
   "contact_schema": [
     {
+      "key": "intro",
+      "type": "section",
+      "label": {
+        "en": "Free Mobile SMS notifications",
+        "fr": "Notifications par SMS Free Mobile",
+        "de": "SMS-Benachrichtigungen von Free Mobile",
+        "es": "Notificaciones por SMS de Free Mobile"
+      },
+      "description": {
+        "en": "Sign in to your Free Mobile subscriber area, open \"Mes options\" and enable \"Notifications par SMS\". The same page shows your identifier and your API key: copy them below. SMS messages are always sent to the phone number of that Free Mobile line.",
+        "fr": "Connectez-vous à votre Espace abonné Free Mobile, ouvrez « Mes options » et activez « Notifications par SMS ». La même page affiche votre identifiant et votre clé d'API : recopiez-les ci-dessous. Les SMS partent toujours vers le numéro de cette ligne Free Mobile.",
+        "de": "Melden Sie sich in Ihrem Free-Mobile-Kundenbereich an, öffnen Sie „Mes options“ und aktivieren Sie „Notifications par SMS“. Auf derselben Seite finden Sie Ihre Kennung und Ihren API-Schlüssel: Übertragen Sie beide unten. Die SMS gehen immer an die Rufnummer dieses Free-Mobile-Anschlusses.",
+        "es": "Inicie sesión en su área de cliente de Free Mobile, abra «Mes options» y active «Notifications par SMS». En la misma página aparecen su identificador y su clave de API: cópielos a continuación. Los SMS se envían siempre al número de esa línea de Free Mobile."
+      },
+      "links": [
+        {
+          "url": "https://mobile.free.fr/account/",
+          "label": {
+            "en": "Free Mobile subscriber area",
+            "fr": "Espace abonné Free Mobile",
+            "de": "Free-Mobile-Kundenbereich",
+            "es": "Área de cliente de Free Mobile"
+          }
+        }
+      ]
+    },
+    {
       "key": "username",
       "type": "string",
       "label": {
         "en": "Free Mobile identifier",
-        "fr": "Identifiant Free Mobile"
+        "fr": "Identifiant Free Mobile",
+        "de": "Free-Mobile-Kennung",
+        "es": "Identificador de Free Mobile"
       },
       "description": {
         "en": "Your Free Mobile account identifier (the 8-digit login shown on the SMS notifications page of your Free Mobile account).",
-        "fr": "Votre identifiant Free Mobile (le login à 8 chiffres affiché sur la page « Notifications par SMS » de votre compte Free Mobile)."
+        "fr": "Votre identifiant Free Mobile (le login à 8 chiffres affiché sur la page « Notifications par SMS » de votre compte Free Mobile).",
+        "de": "Ihre Free-Mobile-Kennung (der 8-stellige Login auf der Seite „Notifications par SMS“ Ihres Free-Mobile-Kontos).",
+        "es": "Su identificador de Free Mobile (el login de 8 cifras que aparece en la página «Notifications par SMS» de su cuenta de Free Mobile)."
       },
       "required": true
     },
@@ -34,11 +67,15 @@
       "type": "secret",
       "label": {
         "en": "Free Mobile API key",
-        "fr": "Clé d'API Free Mobile"
+        "fr": "Clé d'API Free Mobile",
+        "de": "Free-Mobile-API-Schlüssel",
+        "es": "Clave de API de Free Mobile"
       },
       "description": {
         "en": "The API key generated on the SMS notifications page of your Free Mobile account. It is stored encrypted and never shown again.",
-        "fr": "La clé d'API générée sur la page « Notifications par SMS » de votre compte Free Mobile. Elle est stockée chiffrée et n'est plus jamais affichée."
+        "fr": "La clé d'API générée sur la page « Notifications par SMS » de votre compte Free Mobile. Elle est stockée chiffrée et n'est plus jamais affichée.",
+        "de": "Der auf der Seite „Notifications par SMS“ Ihres Free-Mobile-Kontos erzeugte API-Schlüssel. Er wird verschlüsselt gespeichert und nie wieder angezeigt.",
+        "es": "La clave de API generada en la página «Notifications par SMS» de su cuenta de Free Mobile. Se guarda cifrada y no se vuelve a mostrar nunca."
       },
       "required": true
     }

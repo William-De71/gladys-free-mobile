@@ -1,0 +1,51 @@
+# Free Mobile SMS
+
+Diese Integration sendet **SMS-Benachrichtigungen** an Ihre eigene Rufnummer und nutzt dafür die kostenlose SMS-API von **Free Mobile**. Es ist ein **reiner Sendekanal**: Gladys kann Ihnen eine SMS schicken (Benachrichtigung einer Szene, Alarm…), aber es gibt keinen Empfangskanal — Sie können nicht auf die SMS antworten, um Gladys zu steuern.
+
+## Voraussetzungen
+
+- Ein **Free-Mobile**-Vertrag (das Mobilfunkangebot von Free, nicht die Freebox).
+- Die Option **„Notifications par SMS“** (SMS-Benachrichtigungen) ist in Ihrem Konto aktiviert.
+
+## Option aktivieren und Zugangsdaten abrufen
+
+1. Melden Sie sich in Ihrem **Free-Mobile-Kundenbereich** unter [https://mobile.free.fr](https://mobile.free.fr) an.
+2. Öffnen Sie das Menü **„Mes options“** (Meine Optionen).
+3. Suchen Sie die Zeile **„Notifications par SMS“** und **aktivieren Sie sie**.
+4. Auf derselben Seite zeigt Free Mobile zwei Angaben an, die Sie benötigen:
+   - Ihre **Kennung** („Customer ID“, ein 8-stelliger Login);
+   - einen **API-Schlüssel** (für Sie erzeugt; Sie können ihn bei Bedarf neu erzeugen).
+
+Halten Sie beide Werte bereit: Sie geben sie in Gladys ein.
+
+> **Wichtig:** Wenn Sie die Option „Notifications par SMS“ deaktivieren und wieder aktivieren, wird ein **neuer API-Schlüssel** erzeugt. Denken Sie dann daran, ihn in der Gladys-Konfiguration zu aktualisieren.
+
+![Wo Sie die Kennung und den API-Schlüssel finden und wo Sie sie in Gladys eingeben](images/setup.svg)
+
+## Integration in Gladys konfigurieren
+
+1. Öffnen Sie in Gladys die Seite **Konfiguration** der Integration Free Mobile SMS.
+2. Füllen Sie im Block **„Mein Konto“** aus:
+   - **Free-Mobile-Kennung** → Ihr 8-stelliger Login;
+   - **Free-Mobile-API-Schlüssel** → der Schlüssel aus dem vorigen Schritt (er wird verschlüsselt gespeichert und nie wieder angezeigt).
+3. **Speichern.** Fertig.
+
+Jeder Gladys-Benutzer gibt **seine eigenen** Zugangsdaten in seinem Block „Mein Konto“ ein. Die SMS gehen immer an die Rufnummer des zugehörigen Free-Mobile-Kontos.
+
+## Verwendung
+
+Nach der Konfiguration empfängt die Integration die ausgehenden Nachrichten, die Gladys an Sie richtet (zum Beispiel die Aktion **„Nachricht senden“** einer Szene oder einen Alarm), und leitet sie per SMS an Ihr Telefon weiter. Weitere Schritte sind nicht nötig.
+
+## Einschränkungen
+
+- **Versand nur an Ihre eigene Rufnummer**: Die Free-Mobile-API erlaubt keinen Versand an beliebige Nummern.
+- **Kein Empfang**: Sie können nicht auf die SMS antworten, um mit Gladys zu sprechen.
+- **Nur Text-SMS**: Anhänge (Bilder) werden nicht weitergeleitet.
+- **Lange Nachrichten**: Free Mobile akzeptiert bis zu 999 Zeichen pro SMS. Eine längere Nachricht wird als mehrere SMS verschickt, nummeriert mit „(1/2)“, „(2/2)“…
+- **Sendelimit**: Free Mobile lehnt zu dicht aufeinanderfolgende Nachrichten ab. Die Integration sendet die Nachrichten eines Benutzers nacheinander und versucht es, wenn Free Mobile um eine Pause bittet, zweimal erneut (nach 2 und dann 5 Sekunden), bevor sie aufgibt.
+
+## Fehlerbehebung
+
+- **Keine SMS erhalten**: Prüfen Sie, ob die Option „Notifications par SMS“ **aktiviert** ist und ob Kennung und API-Schlüssel stimmen.
+- **Fehler „Zugriff verweigert“**: Kennung oder Schlüssel sind wahrscheinlich falsch, oder die Option wurde deaktiviert. Erzeugen Sie den Schlüssel in Ihrem Kundenbereich neu und aktualisieren Sie ihn in Gladys.
+- **Fehler „zu viele SMS gesendet“**: Mehrere Nachrichten wurden innerhalb weniger Sekunden verschickt, und Free Mobile hat sie auch nach den erneuten Versuchen abgelehnt. Verteilen Sie die Aktionen „Nachricht senden“ Ihrer Szenen zeitlich (eine kurze Wartezeit zwischen zwei Aktionen genügt).

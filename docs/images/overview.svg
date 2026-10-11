@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title>How the Free Mobile SMS integration delivers a Gladys notification</title>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#57606a"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cf222e"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="880" height="400" rx="14" fill="#ffffff" stroke="#d0d7de"/>
+
+  <!-- Gladys -->
+  <rect x="30" y="40" width="230" height="150" rx="10" fill="#eef6ff" stroke="#0969da" stroke-width="1.5"/>
+  <text x="145" y="72" text-anchor="middle" font-size="16" font-weight="600" fill="#0a3069">Gladys</text>
+  <text x="48" y="100" font-size="12" fill="#24292f">• scene "Send a message"</text>
+  <text x="48" y="120" font-size="12" fill="#24292f">• alerts, notifications</text>
+  <text x="48" y="148" font-size="12" fill="#24292f">"My account" of each user:</text>
+  <text x="48" y="168" font-size="12" fill="#57606a">identifier + API key (encrypted)</text>
+
+  <!-- Integration -->
+  <rect x="325" y="40" width="240" height="150" rx="10" fill="#fff8e6" stroke="#bf8700" stroke-width="1.5"/>
+  <text x="445" y="72" text-anchor="middle" font-size="16" font-weight="600" fill="#6b4600">Free Mobile integration</text>
+  <text x="343" y="100" font-size="12" fill="#24292f">• one queue per account</text>
+  <text x="343" y="120" font-size="12" fill="#24292f">• &gt; 999 chars: split, numbered</text>
+  <text x="343" y="140" font-size="12" fill="#24292f">• 402 / 500: retried twice</text>
+  <text x="343" y="168" font-size="12" fill="#57606a">stores nothing (stateless)</text>
+
+  <!-- Gladys -> integration -->
+  <line x1="260" y1="115" x2="323" y2="115" stroke="#57606a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="292" y="100" text-anchor="middle" font-size="11" fill="#57606a">text +</text>
+  <text x="292" y="136" text-anchor="middle" font-size="11" fill="#57606a">credentials</text>
+
+  <!-- Free Mobile API -->
+  <rect x="630" y="40" width="220" height="150" rx="10" fill="#ffffff" stroke="#24292f" stroke-width="1.5"/>
+  <text x="740" y="72" text-anchor="middle" font-size="16" font-weight="600" fill="#24292f">Free Mobile</text>
+  <text x="740" y="96" text-anchor="middle" font-size="12" fill="#57606a">smsapi.free-mobile.fr</text>
+  <text x="740" y="124" text-anchor="middle" font-size="12" fill="#24292f">POST /sendmsg</text>
+  <text x="740" y="144" text-anchor="middle" font-size="12" fill="#24292f">{ user, pass, msg }</text>
+  <text x="740" y="170" text-anchor="middle" font-size="11" fill="#57606a">HTTPS, key never in the URL</text>
+
+  <!-- integration -> Free -->
+  <line x1="565" y1="115" x2="628" y2="115" stroke="#57606a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="597" y="100" text-anchor="middle" font-size="11" fill="#57606a">HTTPS</text>
+
+  <!-- Phone -->
+  <rect x="660" y="250" width="160" height="110" rx="18" fill="#f6f8fa" stroke="#24292f" stroke-width="1.5"/>
+  <text x="740" y="282" text-anchor="middle" font-size="15" font-weight="600" fill="#24292f">Your phone</text>
+  <rect x="680" y="296" width="120" height="44" rx="8" fill="#dafbe1" stroke="#1a7f37"/>
+  <text x="740" y="315" text-anchor="middle" font-size="11" fill="#116329">"Front door opened</text>
+  <text x="740" y="330" text-anchor="middle" font-size="11" fill="#116329">at 22:41"</text>
+
+  <!-- Free -> phone -->
+  <line x1="740" y1="190" x2="740" y2="248" stroke="#57606a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="750" y="224" font-size="11" fill="#57606a">SMS to the line</text>
+  <text x="750" y="238" font-size="11" fill="#57606a">of these credentials</text>
+
+  <!-- No inbound -->
+  <path d="M660,330 C480,360 260,350 150,192" fill="none" stroke="#cf222e" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#arrow-red)"/>
+  <circle cx="400" cy="343" r="13" fill="#ffffff" stroke="#cf222e" stroke-width="1.5"/>
+  <line x1="391" y1="334" x2="409" y2="352" stroke="#cf222e" stroke-width="2"/>
+  <line x1="409" y1="334" x2="391" y2="352" stroke="#cf222e" stroke-width="2"/>
+  <text x="400" y="380" text-anchor="middle" font-size="12" fill="#cf222e">No reply path: a send-only channel never talks to the brain</text>
+</svg>
