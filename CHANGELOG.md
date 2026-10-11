@@ -1,3 +1,9 @@
+## [1.2.0](https://github.com/William-De71/gladys-free-mobile/compare/v1.1.1...v1.2.0) (2026-10-11)
+
+### Features
+
+* post the SMS as JSON, retry on rate limits, split long messages and translate into de/es ([dad485d](https://github.com/William-De71/gladys-free-mobile/commit/dad485d6f4a1880b1a57179ec963f656f1aeb887))
+
 ## [1.1.1](https://github.com/William-De71/gladys-free-mobile/compare/v1.1.0...v1.1.1) (2026-08-20)
 
 ### Continuous Integration
