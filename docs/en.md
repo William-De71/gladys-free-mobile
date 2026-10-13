@@ -6,6 +6,7 @@ This integration sends **SMS notifications** to your own phone number, using the
 
 - A **Free Mobile** subscription (the Free mobile plan, not the Freebox).
 - The **"SMS notifications"** option enabled on your account.
+- **Gladys Assistant 5.1.0** or later. On Gladys 4.86 to 5.0, an installed version 1.2.0 keeps sending SMS but receives no further update (its "Update available" badge cannot be applied): update Gladys first.
 
 ## Enable the option and get your credentials
 
@@ -20,7 +21,7 @@ Keep both values at hand: these are what you will enter in Gladys.
 
 > **Important:** if you disable and re-enable the "SMS notifications" option, a **new API key** is generated. Remember to update it in your Gladys configuration.
 
-![Where to find the identifier and the API key, and where to enter them in Gladys](images/setup.svg)
+![Where to find the identifier and the API key, and where to enter them in Gladys](https://raw.githubusercontent.com/William-De71/gladys-free-mobile/main/docs/assets/setup.svg)
 
 ## Configure the integration in Gladys
 
@@ -34,7 +35,28 @@ Each Gladys user enters **their own** credentials in their "My account" block. S
 
 ## Usage
 
-Once configured, the integration receives the outgoing messages Gladys sends you (for example the **"Send a message"** action of a scene, or an alert) and forwards them by SMS to your phone. No further action is required.
+Once configured, the integration receives the outgoing messages Gladys sends you (for example the **"Send Message"** action of a scene, or an alert) and forwards them by SMS to your phone. No further action is required.
+
+By default, a scene message goes to every messaging service you configured. To send it **by SMS only**, pick **Free Mobile SMS** in the **"Send through"** list of the action.
+
+## Scenes: when an SMS is not sent
+
+The **"SMS not sent"** trigger starts a scene when Free Mobile refuses or does not receive an SMS: wrong API key, option disabled, too many SMS, Free Mobile out of service… Use it to be warned through another channel (Telegram, a notification, a light that turns red).
+
+- It fires on the **first** failure of a Free Mobile line, then again only after an SMS of that line went through. A scene that warns you through this same channel therefore cannot loop.
+- The **Reasons** filter limits the scene to some causes; leave it empty to react to all of them.
+- The scene actions can use these variables:
+
+| Variable                        | Content                                                                                                                  |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `{{triggerEvent.data.reason}}`  | cause code: `access_denied`, `rate_limited`, `server_error`, `timeout`, `unreachable`, `invalid_message` or `unexpected` |
+| `{{triggerEvent.data.status}}`  | HTTP status returned by Free Mobile (403, 402…), empty without an answer                                                 |
+| `{{triggerEvent.data.error}}`   | error message in English, as in the logs                                                                                 |
+| `{{triggerEvent.data.account}}` | masked identifier of the line, for example `12****78`                                                                    |
+
+`timeout` means Free Mobile did not answer in time: the SMS may still arrive.
+
+Example: trigger **"SMS not sent"** with the reason **"Access denied"**, then a **"Send Message"** action sent through **Telegram**: `Free Mobile refused an SMS ({{triggerEvent.data.error}}): check the API key.`
 
 ## Limitations
 
@@ -48,4 +70,4 @@ Once configured, the integration receives the outgoing messages Gladys sends you
 
 - **No SMS received**: check that the "SMS notifications" option is **enabled** and that the identifier and API key are correct.
 - **Access denied error**: the identifier or key is likely wrong, or the option has been disabled. Regenerate the key from your subscriber area and update it in Gladys.
-- **"Too many SMS sent" error**: several messages left within a few seconds and Free Mobile kept refusing them after the retries. Space out the "Send a message" actions of your scenes (a short wait between two of them is enough).
+- **"Too many SMS sent" error**: several messages left within a few seconds and Free Mobile kept refusing them after the retries. Space out the "Send Message" actions of your scenes (a short wait between two of them is enough).

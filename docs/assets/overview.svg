@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
-  <title>How the Free Mobile SMS integration delivers a Gladys notification</title>
+  <title>How the Free Mobile SMS integration delivers a Gladys notification, and reports an SMS not sent</title>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="#57606a"/>
@@ -7,13 +7,16 @@
     <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="#cf222e"/>
     </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#bf8700"/>
+    </marker>
   </defs>
   <rect x="0" y="0" width="880" height="400" rx="14" fill="#ffffff" stroke="#d0d7de"/>
 
   <!-- Gladys -->
   <rect x="30" y="40" width="230" height="150" rx="10" fill="#eef6ff" stroke="#0969da" stroke-width="1.5"/>
   <text x="145" y="72" text-anchor="middle" font-size="16" font-weight="600" fill="#0a3069">Gladys</text>
-  <text x="48" y="100" font-size="12" fill="#24292f">• scene "Send a message"</text>
+  <text x="48" y="100" font-size="12" fill="#24292f">• scene "Send Message"</text>
   <text x="48" y="120" font-size="12" fill="#24292f">• alerts, notifications</text>
   <text x="48" y="148" font-size="12" fill="#24292f">"My account" of each user:</text>
   <text x="48" y="168" font-size="12" fill="#57606a">identifier + API key (encrypted)</text>
@@ -24,12 +27,17 @@
   <text x="343" y="100" font-size="12" fill="#24292f">• one queue per account</text>
   <text x="343" y="120" font-size="12" fill="#24292f">• &gt; 999 chars: split, numbered</text>
   <text x="343" y="140" font-size="12" fill="#24292f">• 402 / 500: retried twice</text>
-  <text x="343" y="168" font-size="12" fill="#57606a">stores nothing (stateless)</text>
+  <text x="343" y="168" font-size="12" fill="#57606a">stores nothing on disk</text>
 
   <!-- Gladys -> integration -->
   <line x1="260" y1="115" x2="323" y2="115" stroke="#57606a" stroke-width="1.5" marker-end="url(#arrow)"/>
   <text x="292" y="100" text-anchor="middle" font-size="11" fill="#57606a">text +</text>
   <text x="292" y="136" text-anchor="middle" font-size="11" fill="#57606a">credentials</text>
+
+  <!-- integration -> Gladys: scene trigger on the first failure of a line -->
+  <path d="M420,190 C400,232 200,232 168,193" fill="none" stroke="#bf8700" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrow-orange)"/>
+  <text x="292" y="246" text-anchor="middle" font-size="11" fill="#6b4600">first failure of a line:</text>
+  <text x="292" y="260" text-anchor="middle" font-size="11" fill="#6b4600">scene trigger "SMS not sent"</text>
 
   <!-- Free Mobile API -->
   <rect x="630" y="40" width="220" height="150" rx="10" fill="#ffffff" stroke="#24292f" stroke-width="1.5"/>

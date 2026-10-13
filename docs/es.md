@@ -6,6 +6,7 @@ Esta integración envía **notificaciones por SMS** a su propio número de telé
 
 - Una suscripción a **Free Mobile** (la oferta móvil de Free, no la Freebox).
 - La opción **«Notifications par SMS»** (notificaciones por SMS) activada en su cuenta.
+- **Gladys Assistant 5.1.0** o posterior. En Gladys 4.86 a 5.0, una versión 1.2.0 ya instalada sigue enviando los SMS pero no recibe más actualizaciones (su aviso «Actualización disponible» no se puede aplicar): actualice primero Gladys.
 
 ## Activar la opción y obtener sus credenciales
 
@@ -20,7 +21,7 @@ Tenga a mano ambos valores: son los que introducirá en Gladys.
 
 > **Importante:** si desactiva y vuelve a activar la opción «Notifications par SMS», se genera una **nueva clave de API**. Recuerde entonces actualizarla en la configuración de Gladys.
 
-![Dónde encontrar el identificador y la clave de API, y dónde introducirlos en Gladys](images/setup.svg)
+![Dónde encontrar el identificador y la clave de API, y dónde introducirlos en Gladys](https://raw.githubusercontent.com/William-De71/gladys-free-mobile/main/docs/assets/setup.svg)
 
 ## Configurar la integración en Gladys
 
@@ -34,7 +35,28 @@ Cada usuario de Gladys introduce **sus propias** credenciales en su bloque «Mi 
 
 ## Uso
 
-Una vez configurada, la integración recibe los mensajes salientes que Gladys le dirige (por ejemplo la acción **«Enviar un mensaje»** de una escena, o una alerta) y los reenvía por SMS a su teléfono. No hace falta nada más.
+Una vez configurada, la integración recibe los mensajes salientes que Gladys le dirige (por ejemplo la acción **«Enviar mensaje»** de una escena, o una alerta) y los reenvía por SMS a su teléfono. No hace falta nada más.
+
+De forma predeterminada, un mensaje de escena se envía a todos los servicios de mensajería que haya configurado. Para enviarlo **solo por SMS**, elija **Free Mobile SMS** en la lista **«Enviar mediante»** de la acción.
+
+## Escenas: cuando un SMS no se envía
+
+El activador **«SMS no enviado»** inicia una escena cuando Free Mobile rechaza o no recibe un SMS: clave de API errónea, opción desactivada, demasiados SMS, Free Mobile fuera de servicio… Úselo para recibir un aviso por otro canal (Telegram, una notificación, una luz que se pone roja).
+
+- Se activa con el **primer** fallo de una línea de Free Mobile y solo de nuevo después de que un SMS de esa línea haya pasado. Por eso, una escena que le avisa por este mismo canal no puede entrar en bucle.
+- El filtro **Causas** limita la escena a algunas causas; déjelo vacío para reaccionar a todas.
+- Las acciones de la escena pueden usar estas variables:
+
+| Variable                        | Contenido                                                                                                                       |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `{{triggerEvent.data.reason}}`  | código de la causa: `access_denied`, `rate_limited`, `server_error`, `timeout`, `unreachable`, `invalid_message` o `unexpected` |
+| `{{triggerEvent.data.status}}`  | código HTTP devuelto por Free Mobile (403, 402…), vacío sin respuesta                                                           |
+| `{{triggerEvent.data.error}}`   | mensaje de error en inglés, como en los registros                                                                               |
+| `{{triggerEvent.data.account}}` | identificador enmascarado de la línea, por ejemplo `12****78`                                                                   |
+
+`timeout` significa que Free Mobile no respondió a tiempo: el SMS aún puede llegar.
+
+Ejemplo: activador **«SMS no enviado»** con la causa **«Acceso denegado»** y después una acción **«Enviar mensaje»** mediante **Telegram**: `Free Mobile rechazó un SMS ({{triggerEvent.data.error}}): compruebe la clave de API.`
 
 ## Limitaciones
 
@@ -48,4 +70,4 @@ Una vez configurada, la integración recibe los mensajes salientes que Gladys le
 
 - **No recibo ningún SMS**: compruebe que la opción «Notifications par SMS» está **activada** y que el identificador y la clave de API son correctos.
 - **Error de acceso denegado**: el identificador o la clave probablemente son incorrectos, o la opción se ha desactivado. Regenere la clave desde su área de cliente y actualícela en Gladys.
-- **Error «demasiados SMS enviados»**: se enviaron varios mensajes en pocos segundos y Free Mobile siguió rechazándolos tras los reintentos. Espacie las acciones «Enviar un mensaje» de sus escenas (basta con una breve espera entre dos).
+- **Error «demasiados SMS enviados»**: se enviaron varios mensajes en pocos segundos y Free Mobile siguió rechazándolos tras los reintentos. Espacie las acciones «Enviar mensaje» de sus escenas (basta con una breve espera entre dos).

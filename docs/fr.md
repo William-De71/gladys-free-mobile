@@ -6,6 +6,7 @@ Cette intégration envoie des notifications **par SMS** vers votre propre numér
 
 - Un abonnement **Free Mobile** (l'offre mobile Free, pas la Freebox).
 - L'option **« Notifications par SMS »** activée sur votre compte.
+- **Gladys Assistant 5.1.0** ou plus récent. Sur Gladys 4.86 à 5.0, une version 1.2.0 déjà installée continue d'envoyer les SMS mais ne reçoit plus de mise à jour (son badge « Mise à jour disponible » ne peut pas s'appliquer) : mettez d'abord Gladys à jour.
 
 ## Activer l'option et récupérer vos identifiants
 
@@ -20,7 +21,7 @@ Gardez ces deux valeurs sous la main : ce sont elles que vous saisirez dans Glad
 
 > **Important :** si vous désactivez puis réactivez l'option « Notifications par SMS », une **nouvelle clé d'API** est générée. Pensez alors à la mettre à jour dans la configuration de Gladys.
 
-![Où trouver l'identifiant et la clé d'API, et où les saisir dans Gladys](images/setup.svg)
+![Où trouver l'identifiant et la clé d'API, et où les saisir dans Gladys](https://raw.githubusercontent.com/William-De71/gladys-free-mobile/main/docs/assets/setup.svg)
 
 ## Configurer l'intégration dans Gladys
 
@@ -35,6 +36,27 @@ Chaque utilisateur de Gladys saisit **ses propres** identifiants dans son bloc �
 ## Utilisation
 
 Une fois configurée, l'intégration reçoit les messages sortants que Gladys vous adresse (par exemple l'action **« Envoyer un message »** d'une scène, ou une alerte) et les transmet par SMS vers votre téléphone. Aucune action supplémentaire n'est nécessaire.
+
+Par défaut, un message de scène part sur tous les services de messagerie que vous avez configurés. Pour l'envoyer **uniquement par SMS**, choisissez **Free Mobile SMS** dans la liste **« Envoyer via »** de l'action.
+
+## Scènes : quand un SMS n'est pas envoyé
+
+Le déclencheur **« SMS non envoyé »** lance une scène quand Free Mobile refuse ou ne reçoit pas un SMS : clé d'API erronée, option désactivée, trop de SMS, Free Mobile hors service… Servez-vous-en pour être prévenu par un autre canal (Telegram, une notification, une lumière qui passe au rouge).
+
+- Il se déclenche au **premier** échec d'une ligne Free Mobile, puis seulement après qu'un SMS de cette ligne est de nouveau passé. Une scène qui vous prévient par ce même canal ne peut donc pas boucler.
+- Le filtre **Causes** limite la scène à certaines causes ; laissez-le vide pour réagir à toutes.
+- Les actions de la scène disposent de ces variables :
+
+| Variable                        | Contenu                                                                                                                         |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `{{triggerEvent.data.reason}}`  | code de la cause : `access_denied`, `rate_limited`, `server_error`, `timeout`, `unreachable`, `invalid_message` ou `unexpected` |
+| `{{triggerEvent.data.status}}`  | code HTTP renvoyé par Free Mobile (403, 402…), vide sans réponse                                                                |
+| `{{triggerEvent.data.error}}`   | message d'erreur en anglais, comme dans les journaux                                                                            |
+| `{{triggerEvent.data.account}}` | identifiant masqué de la ligne, par exemple `12****78`                                                                          |
+
+`timeout` signifie que Free Mobile n'a pas répondu à temps : le SMS peut tout de même arriver.
+
+Exemple : déclencheur **« SMS non envoyé »** avec la cause **« Accès refusé »**, puis une action **« Envoyer un message »** envoyée via **Telegram** : `Free Mobile a refusé un SMS ({{triggerEvent.data.error}}) : vérifiez la clé d'API.`
 
 ## Limitations
 
