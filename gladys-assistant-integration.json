@@ -10,7 +10,7 @@
   },
   "version": "1.2.0",
   "docker_image": "ghcr.io/william-de71/gladys-free-mobile:1.2.0",
-  "gladys_version": ">=4.86.0",
+  "gladys_version": ">=5.1.0",
   "categories": ["notifications"],
   "transports": ["cloud"],
   "cover_image": "https://raw.githubusercontent.com/William-De71/gladys-free-mobile/main/cover.jpg",
@@ -78,6 +78,172 @@
         "es": "La clave de API generada en la página «Notifications par SMS» de su cuenta de Free Mobile. Se guarda cifrada y no se vuelve a mostrar nunca."
       },
       "required": true
+    }
+  ],
+  "scene_triggers": [
+    {
+      "key": "sms_not_sent",
+      "label": {
+        "en": "SMS not sent",
+        "fr": "SMS non envoyé",
+        "de": "SMS nicht gesendet",
+        "es": "SMS no enviado"
+      },
+      "description": {
+        "en": "Free Mobile did not send an SMS. Fires on the first failure of a Free Mobile line, then again only after an SMS of that line went through: a scene that warns you through this same channel cannot loop.",
+        "fr": "Free Mobile n'a pas envoyé un SMS. Se déclenche au premier échec d'une ligne Free Mobile, puis seulement après qu'un SMS de cette ligne est de nouveau passé : une scène qui vous prévient par ce même canal ne peut pas boucler.",
+        "de": "Free Mobile hat eine SMS nicht gesendet. Löst beim ersten Fehler eines Free-Mobile-Anschlusses aus, danach erst wieder, nachdem eine SMS dieses Anschlusses durchgegangen ist: Eine Szene, die Sie über denselben Kanal warnt, kann keine Schleife bilden.",
+        "es": "Free Mobile no ha enviado un SMS. Se activa con el primer fallo de una línea de Free Mobile y solo de nuevo después de que un SMS de esa línea haya pasado: una escena que le avisa por este mismo canal no puede entrar en bucle."
+      },
+      "fields": [
+        {
+          "key": "reason",
+          "type": "multi_select",
+          "label": {
+            "en": "Reasons",
+            "fr": "Causes",
+            "de": "Ursachen",
+            "es": "Causas"
+          },
+          "description": {
+            "en": "Leave empty to react to every reason.",
+            "fr": "Laissez vide pour réagir à toutes les causes.",
+            "de": "Leer lassen, um auf alle Ursachen zu reagieren.",
+            "es": "Déjelo vacío para reaccionar a todas las causas."
+          },
+          "options": [
+            {
+              "value": "access_denied",
+              "label": {
+                "en": "Access denied (identifier, API key or option)",
+                "fr": "Accès refusé (identifiant, clé d'API ou option)",
+                "de": "Zugriff verweigert (Kennung, API-Schlüssel oder Option)",
+                "es": "Acceso denegado (identificador, clave de API u opción)"
+              }
+            },
+            {
+              "value": "rate_limited",
+              "label": {
+                "en": "Too many SMS in a short time",
+                "fr": "Trop de SMS en peu de temps",
+                "de": "Zu viele SMS in kurzer Zeit",
+                "es": "Demasiados SMS en poco tiempo"
+              }
+            },
+            {
+              "value": "server_error",
+              "label": {
+                "en": "Free Mobile server error",
+                "fr": "Erreur du serveur Free Mobile",
+                "de": "Serverfehler bei Free Mobile",
+                "es": "Error del servidor de Free Mobile"
+              }
+            },
+            {
+              "value": "timeout",
+              "label": {
+                "en": "No answer in time (the SMS may still arrive)",
+                "fr": "Pas de réponse à temps (le SMS peut tout de même arriver)",
+                "de": "Keine Antwort rechtzeitig (die SMS kann trotzdem ankommen)",
+                "es": "Sin respuesta a tiempo (el SMS aún puede llegar)"
+              }
+            },
+            {
+              "value": "unreachable",
+              "label": {
+                "en": "Free Mobile unreachable (network)",
+                "fr": "Free Mobile injoignable (réseau)",
+                "de": "Free Mobile nicht erreichbar (Netzwerk)",
+                "es": "Free Mobile inaccesible (red)"
+              }
+            },
+            {
+              "value": "invalid_message",
+              "label": {
+                "en": "Message refused (missing parameter)",
+                "fr": "Message refusé (paramètre manquant)",
+                "de": "Nachricht abgelehnt (fehlender Parameter)",
+                "es": "Mensaje rechazado (falta un parámetro)"
+              }
+            },
+            {
+              "value": "unexpected",
+              "label": {
+                "en": "Unexpected answer",
+                "fr": "Réponse inattendue",
+                "de": "Unerwartete Antwort",
+                "es": "Respuesta inesperada"
+              }
+            }
+          ]
+        }
+      ],
+      "variables": [
+        {
+          "key": "reason",
+          "type": "string",
+          "label": {
+            "en": "Reason (code)",
+            "fr": "Cause (code)",
+            "de": "Ursache (Code)",
+            "es": "Causa (código)"
+          },
+          "description": {
+            "en": "access_denied, rate_limited, server_error, timeout, unreachable, invalid_message or unexpected.",
+            "fr": "access_denied, rate_limited, server_error, timeout, unreachable, invalid_message ou unexpected.",
+            "de": "access_denied, rate_limited, server_error, timeout, unreachable, invalid_message oder unexpected.",
+            "es": "access_denied, rate_limited, server_error, timeout, unreachable, invalid_message o unexpected."
+          }
+        },
+        {
+          "key": "status",
+          "type": "number",
+          "label": {
+            "en": "HTTP status",
+            "fr": "Code HTTP",
+            "de": "HTTP-Status",
+            "es": "Código HTTP"
+          },
+          "description": {
+            "en": "The answer of Free Mobile (403, 402…), empty without an answer.",
+            "fr": "La réponse de Free Mobile (403, 402…), vide sans réponse.",
+            "de": "Die Antwort von Free Mobile (403, 402…), leer ohne Antwort.",
+            "es": "La respuesta de Free Mobile (403, 402…), vacía sin respuesta."
+          }
+        },
+        {
+          "key": "error",
+          "type": "string",
+          "label": {
+            "en": "Error message",
+            "fr": "Message d'erreur",
+            "de": "Fehlermeldung",
+            "es": "Mensaje de error"
+          },
+          "description": {
+            "en": "The error in English, as in the logs.",
+            "fr": "L'erreur en anglais, comme dans les journaux.",
+            "de": "Der Fehler auf Englisch, wie in den Protokollen.",
+            "es": "El error en inglés, como en los registros."
+          }
+        },
+        {
+          "key": "account",
+          "type": "string",
+          "label": {
+            "en": "Free Mobile line",
+            "fr": "Ligne Free Mobile",
+            "de": "Free-Mobile-Anschluss",
+            "es": "Línea de Free Mobile"
+          },
+          "description": {
+            "en": "The masked identifier of the line, e.g. 12****78.",
+            "fr": "L'identifiant masqué de la ligne, par exemple 12****78.",
+            "de": "Die maskierte Kennung des Anschlusses, z. B. 12****78.",
+            "es": "El identificador enmascarado de la línea, por ejemplo 12****78."
+          }
+        }
+      ]
     }
   ]
 }

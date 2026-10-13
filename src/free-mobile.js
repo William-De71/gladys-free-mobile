@@ -33,6 +33,60 @@ const RETRYABLE_STATUSES = new Set([402, 500]);
 // the 402 rate limit.
 const PART_GAP_MS = 1000;
 
+// Why an SMS was not sent, as the `reason` of a FreeMobileError and of the
+// `sms_not_sent` scene trigger. These values are stored in the scenes that
+// filter on them: never rename one.
+const FAILURE_REASONS = Object.freeze({
+  INVALID_MESSAGE: 'invalid_message',
+  RATE_LIMITED: 'rate_limited',
+  ACCESS_DENIED: 'access_denied',
+  SERVER_ERROR: 'server_error',
+  TIMEOUT: 'timeout',
+  UNREACHABLE: 'unreachable',
+  UNEXPECTED: 'unexpected',
+});
+
+/**
+ * @description An SMS Free Mobile did not accept, with the reason of the failure.
+ */
+class FreeMobileError extends Error {
+  /**
+   * @param {string} message - Readable message, without any credential.
+   * @param {object} details - Failure details.
+   * @param {string} details.reason - One of FAILURE_REASONS.
+   * @param {number|null} [details.status] - HTTP status, when Free Mobile answered.
+   * @param {Error} [details.cause] - Underlying error.
+   */
+  constructor(message, { reason, status = null, cause } = {}) {
+    super(message, cause ? { cause } : undefined);
+    this.name = 'FreeMobileError';
+    this.reason = reason;
+    this.status = status;
+  }
+}
+
+/**
+ * @description The failure reason of a Free Mobile HTTP status.
+ * @param {number} status - HTTP status returned by the Free Mobile API.
+ * @returns {string} One of FAILURE_REASONS.
+ * @example
+ * reasonOf(403); // -> 'access_denied'
+ */
+function reasonOf(status) {
+  switch (status) {
+    case 400:
+      return FAILURE_REASONS.INVALID_MESSAGE;
+    case 402:
+      return FAILURE_REASONS.RATE_LIMITED;
+    case 403:
+      return FAILURE_REASONS.ACCESS_DENIED;
+    case 500:
+      return FAILURE_REASONS.SERVER_ERROR;
+    default:
+      return FAILURE_REASONS.UNEXPECTED;
+  }
+}
+
 /**
  * @description Map a Free Mobile HTTP status to a human-readable reason.
  * The API documents these codes on the SMS notifications page.
@@ -118,11 +172,17 @@ async function postOnce({ username, accessToken }, text, fetchImpl) {
     return response.status;
   } catch (err) {
     if (err.name === 'AbortError') {
-      throw new Error('Free Mobile API timed out', { cause: err });
+      throw new FreeMobileError('Free Mobile API timed out', {
+        reason: FAILURE_REASONS.TIMEOUT,
+        cause: err,
+      });
     }
     // Never surface the request (it carries the credentials): the message of a
     // network error is enough to diagnose it.
-    throw new Error(`Free Mobile API unreachable: ${err.message}`, { cause: err });
+    throw new FreeMobileError(`Free Mobile API unreachable: ${err.message}`, {
+      reason: FAILURE_REASONS.UNREACHABLE,
+      cause: err,
+    });
   } finally {
     clearTimeout(timeout);
   }
@@ -144,7 +204,10 @@ async function sendPart(credentials, text, { fetchImpl, wait, retryDelaysMs }) {
       return;
     }
     if (!RETRYABLE_STATUSES.has(status) || attempt >= retryDelaysMs.length) {
-      throw new Error(`Free Mobile API rejected the SMS: ${describeError(status)}`);
+      throw new FreeMobileError(`Free Mobile API rejected the SMS: ${describeError(status)}`, {
+        reason: reasonOf(status),
+        status,
+      });
     }
     await wait(retryDelaysMs[attempt]);
   }
@@ -222,6 +285,9 @@ export {
   sendSms,
   splitMessage,
   describeError,
+  reasonOf,
+  FreeMobileError,
+  FAILURE_REASONS,
   createSerializer,
   FREE_MOBILE_SEND_URL,
   MAX_SMS_LENGTH,

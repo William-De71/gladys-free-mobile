@@ -1,0 +1,27 @@
+{
+  "version": "1.2.0",
+  "type": "communication",
+  "messaging": {
+    "receive": false
+  },
+  "transports": ["cloud"],
+  "contact_schema": [
+    {
+      "key": "intro",
+      "type": "section",
+      "required": false
+    },
+    {
+      "key": "username",
+      "type": "string",
+      "required": true
+    },
+    {
+      "key": "access_token",
+      "type": "secret",
+      "required": true
+    }
+  ],
+  "actions": [],
+  "config_schema": []
+}
