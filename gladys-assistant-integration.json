@@ -8,8 +8,8 @@
     "de": "Senden Sie SMS-Benachrichtigungen an Ihre eigene Rufnummer über die SMS-API von Free Mobile.",
     "es": "Envíe notificaciones SMS a su propio número de teléfono a través de la API SMS de Free Mobile."
   },
-  "version": "1.3.0",
-  "docker_image": "ghcr.io/william-de71/gladys-free-mobile:1.3.0",
+  "version": "1.3.1",
+  "docker_image": "ghcr.io/william-de71/gladys-free-mobile:1.3.1",
   "gladys_version": ">=5.1.0",
   "categories": ["notifications"],
   "transports": ["cloud"],
