@@ -10,8 +10,19 @@
   },
   "version": "1.3.1",
   "docker_image": "ghcr.io/william-de71/gladys-free-mobile:1.3.1",
-  "gladys_version": ">=5.1.0",
+  "gladys_version": ">=5.3.0",
   "categories": ["notifications"],
+  "keywords": [
+    "texto",
+    "notification",
+    "alerte",
+    "message",
+    "iliad",
+    "free",
+    "téléphone",
+    "mobile phone"
+  ],
+  "countries": ["FR"],
   "transports": ["cloud"],
   "cover_image": "https://raw.githubusercontent.com/William-De71/gladys-free-mobile/main/cover.jpg",
   "messaging": {

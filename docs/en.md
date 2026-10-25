@@ -6,7 +6,7 @@ This integration sends **SMS notifications** to your own phone number, using the
 
 - A **Free Mobile** subscription (the Free mobile plan, not the Freebox).
 - The **"SMS notifications"** option enabled on your account.
-- **Gladys Assistant 5.1.0** or later. On Gladys 4.86 to 5.0, an installed version 1.2.0 keeps sending SMS but receives no further update (its "Update available" badge cannot be applied): update Gladys first.
+- **Gladys Assistant 5.3.0** or later. On Gladys 4.86 to 5.2, an already installed version keeps sending SMS but receives no further update (its "Update available" badge cannot be applied): update Gladys first.
 
 ## Enable the option and get your credentials
 

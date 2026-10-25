@@ -5,7 +5,7 @@
 [![Lizenz: Apache-2.0](https://img.shields.io/badge/Lizenz-Apache--2.0-blue.svg)](LICENSE)
 [![Neueste Version](https://img.shields.io/github/v/release/William-De71/gladys-free-mobile?sort=semver)](https://github.com/William-De71/gladys-free-mobile/releases)
 [![CI](https://img.shields.io/github/actions/workflow/status/William-De71/gladys-free-mobile/release.yml?branch=main&label=CI)](https://github.com/William-De71/gladys-free-mobile/actions/workflows/release.yml)
-[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.1.0-2f6fb5)](https://gladysassistant.com)
+[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.3.0-2f6fb5)](https://gladysassistant.com)
 
 ![Free Mobile SMS für Gladys Assistant](cover.jpg)
 
@@ -119,7 +119,7 @@ Ein Ereignis pro Übergang verhindert Schleifen: Eine Szene, die Sie über dense
 
 ## Installation
 
-In Gladys (5.1.0 oder neuer): **Integrationen → Store → Free Mobile SMS → Installieren**. Der Store listet die Integration im Laufe des Tages nach einem Release.
+In Gladys (5.3.0 oder neuer): **Integrationen → Store → Free Mobile SMS → Installieren**. Der Store listet die Integration im Laufe des Tages nach einem Release.
 
 Um einen Build vor seinem Release zu testen: **Integrationen → Integration installieren → Entwicklermodus**, mit dem Manifest aus der Zusammenfassung des Workflows „Build and publish image“.
 
@@ -180,7 +180,7 @@ flowchart LR
 - **„access denied“**: falsche Kennung oder falscher Schlüssel, oder die Option ist deaktiviert. Deaktivieren und erneutes Aktivieren der Option erzeugt einen neuen Schlüssel.
 - **„too many SMS sent“**: mehrere Nachrichten innerhalb weniger Sekunden; verteilen Sie die Aktionen „Nachricht senden“ Ihrer Szenen zeitlich.
 - **„timed out“**: Free Mobile hat nicht rechtzeitig geantwortet; die SMS kann trotzdem ankommen und wird daher nicht erneut gesendet.
-- **Update wird nicht angeboten**: Die Integration erfordert Gladys 5.1.0; aktualisieren Sie zuerst Gladys.
+- **Update wird nicht angeboten**: Die Integration erfordert Gladys 5.3.0 (Katalog-Schlagwörter und -Länder von Gladys 5.3); aktualisieren Sie zuerst Gladys.
 
 ## Mitwirken
 

@@ -5,7 +5,7 @@
 [![Licencia: Apache-2.0](https://img.shields.io/badge/licencia-Apache--2.0-blue.svg)](LICENSE)
 [![Última versión](https://img.shields.io/github/v/release/William-De71/gladys-free-mobile?sort=semver)](https://github.com/William-De71/gladys-free-mobile/releases)
 [![CI](https://img.shields.io/github/actions/workflow/status/William-De71/gladys-free-mobile/release.yml?branch=main&label=CI)](https://github.com/William-De71/gladys-free-mobile/actions/workflows/release.yml)
-[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.1.0-2f6fb5)](https://gladysassistant.com)
+[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.3.0-2f6fb5)](https://gladysassistant.com)
 
 ![Free Mobile SMS para Gladys Assistant](cover.jpg)
 
@@ -119,7 +119,7 @@ Un solo evento por transición impide que las escenas entren en bucle: una escen
 
 ## Instalación
 
-Desde Gladys (5.1.0 o posterior): **Integraciones → Tienda → Free Mobile SMS → Instalar**. La tienda incluye la integración en el día siguiente a una versión.
+Desde Gladys (5.3.0 o posterior): **Integraciones → Tienda → Free Mobile SMS → Instalar**. La tienda incluye la integración en el día siguiente a una versión.
 
 Para probar una compilación antes de su versión: **Integraciones → Instalar una integración → Modo desarrollador**, con el manifiesto que aparece en el resumen del workflow «Build and publish image».
 
@@ -180,7 +180,7 @@ flowchart LR
 - **«access denied»**: identificador o clave incorrectos, u opción desactivada. Desactivar y reactivar la opción genera una nueva clave.
 - **«too many SMS sent»**: varios mensajes en pocos segundos; espacie las acciones «Enviar mensaje» de sus escenas.
 - **«timed out»**: Free Mobile no respondió a tiempo; el SMS aún puede llegar, por eso no se reenvía.
-- **No se ofrece la actualización**: la integración requiere Gladys 5.1.0; actualice primero Gladys.
+- **No se ofrece la actualización**: la integración requiere Gladys 5.3.0 (palabras clave y países del catálogo de Gladys 5.3); actualice primero Gladys.
 
 ## Contribuir
 

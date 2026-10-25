@@ -77,3 +77,13 @@ test('section descriptions stay within the 1000 characters the core accepts', ()
       Object.values(section.description).forEach((text) => assert.ok(text.length <= 1000)),
     );
 });
+
+test('catalog keywords and countries of Gladys 5.3.0', () => {
+  assert.equal(manifest.gladys_version, '>=5.3.0');
+  const keywords = manifest.keywords.map((keyword) => keyword.trim().toLowerCase());
+  assert.ok(keywords.length >= 1 && keywords.length <= 10, 'one to ten keywords');
+  keywords.forEach((keyword) => assert.ok(keyword.length >= 2 && keyword.length <= 30, keyword));
+  assert.equal(new Set(keywords).size, keywords.length, 'unique once trimmed and lowercased');
+  // Usable in FR only: hidden from the browse views of the catalog elsewhere.
+  assert.deepEqual(manifest.countries, ['FR']);
+});

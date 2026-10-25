@@ -5,7 +5,7 @@
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Latest release](https://img.shields.io/github/v/release/William-De71/gladys-free-mobile?sort=semver)](https://github.com/William-De71/gladys-free-mobile/releases)
 [![CI](https://img.shields.io/github/actions/workflow/status/William-De71/gladys-free-mobile/release.yml?branch=main&label=CI)](https://github.com/William-De71/gladys-free-mobile/actions/workflows/release.yml)
-[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.1.0-2f6fb5)](https://gladysassistant.com)
+[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.3.0-2f6fb5)](https://gladysassistant.com)
 
 ![Free Mobile SMS for Gladys Assistant](cover.jpg)
 
@@ -119,7 +119,7 @@ One event per transition keeps scenes from looping: a scene that warns you throu
 
 ## Installation
 
-From Gladys (5.1.0 or later): **Integrations → Store → Free Mobile SMS → Install**. The store lists the integration within the day of a release.
+From Gladys (5.3.0 or later): **Integrations → Store → Free Mobile SMS → Install**. The store lists the integration within the day of a release.
 
 To test a build before its release: **Integrations → Install an integration → Developer mode**, with the manifest shown in the summary of the "Build and publish image" workflow.
 
@@ -180,7 +180,7 @@ flowchart LR
 - **"access denied"**: wrong identifier or key, or option disabled. Disabling and re-enabling the option generates a new key.
 - **"too many SMS sent"**: several messages within a few seconds; space out the "Send Message" actions of your scenes.
 - **"timed out"**: Free Mobile did not answer in time; the SMS may still arrive, so it is not resent.
-- **Update not offered**: the integration requires Gladys 5.1.0; update Gladys first.
+- **Update not offered**: the integration requires Gladys 5.3.0 (catalog keywords and countries of Gladys 5.3); update Gladys first.
 
 ## Contributing
 

@@ -6,7 +6,7 @@ Esta integración envía **notificaciones por SMS** a su propio número de telé
 
 - Una suscripción a **Free Mobile** (la oferta móvil de Free, no la Freebox).
 - La opción **«Notifications par SMS»** (notificaciones por SMS) activada en su cuenta.
-- **Gladys Assistant 5.1.0** o posterior. En Gladys 4.86 a 5.0, una versión 1.2.0 ya instalada sigue enviando los SMS pero no recibe más actualizaciones (su aviso «Actualización disponible» no se puede aplicar): actualice primero Gladys.
+- **Gladys Assistant 5.3.0** o posterior. En Gladys 4.86 a 5.2, una versión ya instalada sigue enviando los SMS pero no recibe más actualizaciones (su aviso «Actualización disponible» no se puede aplicar): actualice primero Gladys.
 
 ## Activar la opción y obtener sus credenciales
 

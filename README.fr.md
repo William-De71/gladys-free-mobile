@@ -5,7 +5,7 @@
 [![Licence : Apache-2.0](https://img.shields.io/badge/licence-Apache--2.0-blue.svg)](LICENSE)
 [![Dernière version](https://img.shields.io/github/v/release/William-De71/gladys-free-mobile?sort=semver)](https://github.com/William-De71/gladys-free-mobile/releases)
 [![CI](https://img.shields.io/github/actions/workflow/status/William-De71/gladys-free-mobile/release.yml?branch=main&label=CI)](https://github.com/William-De71/gladys-free-mobile/actions/workflows/release.yml)
-[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.1.0-2f6fb5)](https://gladysassistant.com)
+[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.3.0-2f6fb5)](https://gladysassistant.com)
 
 ![Free Mobile SMS pour Gladys Assistant](cover.jpg)
 
@@ -119,7 +119,7 @@ Un seul événement par transition empêche les scènes de boucler : une scène 
 
 ## Installation
 
-Depuis Gladys (5.1.0 ou plus récent) : **Intégrations → Store → Free Mobile SMS → Installer**. Le store référence l'intégration dans la journée qui suit une release.
+Depuis Gladys (5.3.0 ou plus récent) : **Intégrations → Store → Free Mobile SMS → Installer**. Le store référence l'intégration dans la journée qui suit une release.
 
 Pour tester un build avant sa release : **Intégrations → Installer une intégration → Mode développeur**, avec le manifeste affiché dans le résumé du workflow « Build and publish image ».
 
@@ -180,7 +180,7 @@ flowchart LR
 - **« access denied »** : identifiant ou clé erronés, ou option désactivée. Désactiver puis réactiver l'option génère une nouvelle clé.
 - **« too many SMS sent »** : plusieurs messages en quelques secondes ; espacez les actions « Envoyer un message » de vos scènes.
 - **« timed out »** : Free Mobile n'a pas répondu à temps ; le SMS peut tout de même arriver, il n'est donc pas renvoyé.
-- **Mise à jour non proposée** : l'intégration exige Gladys 5.1.0 ; mettez d'abord Gladys à jour.
+- **Mise à jour non proposée** : l'intégration exige Gladys 5.3.0 (mots-clés et pays du catalogue de Gladys 5.3) ; mettez d'abord Gladys à jour.
 
 ## Contribuer
 
