@@ -172,7 +172,7 @@ flowchart LR
 - `main` solo recibe el manifiesto con la nueva versión cuando la imagen existe: la tienda nunca anuncia una versión que Gladys no pueda descargar.
 - Ejecución manual (**Actions → Release → Run workflow**): `release-as` fuerza una versión, `dry-run` muestra la versión y el changelog sin publicar nada.
 - `CHANGELOG.md` se genera: no lo edite nunca a mano.
-- Si `main` está protegida, permita que GitHub Actions omita la regla (el commit de la versión lo envía el workflow), o use el token de una GitHub App.
+- **Rama protegida**: unos rulesets exigen una pull request en `main` y bloquean las etiquetas `v*`; solo pasan el mantenedor y las deploy keys. La publicación hace push con la deploy key del entorno `release` (secreto `RELEASE_DEPLOY_KEY`, solo `main`): una ejecución lanzada desde otra rama nunca la obtiene. `build.yml` y `github-release.yml` no arrancan con una etiqueta: la publicación los llama, o lánzelos a mano (Actions → Run workflow, con `version` para la imagen) para terminar una publicación.
 
 ## Solución de problemas
 
